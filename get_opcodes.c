@@ -5,7 +5,7 @@
  *
  * Return: pointer to function that execute the opcode
  */
-void (*get_opcodes(char *opc))(stack, unsigned int line_num)
+void (*get_opcodes(char *opc))(stack_t **stack, unsigned int line_num)
 {
 	instruction_t instruct[] = {
 	{"push", _push};

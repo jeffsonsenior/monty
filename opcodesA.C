@@ -1,4 +1,5 @@
 #include "monty.h"
+
 /**
  * _push - pushes an element to the stack
  *
@@ -54,6 +55,14 @@ void _pall(stack_t **doubly, unsigned int cline)
 		aux = aux -> next;
 	}
 }
+
+/**
+ * _pint - print the val at the top of the stack
+ * @doubly: head of the linked list
+ * @cline: the line number
+ *
+ * Return: no return val
+ */
 void _pint(stack_t **doubly, unsigned int cline)
 {
 	(void)cline;

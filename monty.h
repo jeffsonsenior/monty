@@ -125,4 +125,4 @@ void free_vglo(void);
 
 
 
-#endif /* MONTY_H */
+#endif /* MONTY_ */

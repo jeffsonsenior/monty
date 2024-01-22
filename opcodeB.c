@@ -1,10 +1,10 @@
 #include "monty.h"
 /**
- * _add - add the top two values of a stack_t linked list
- * @doubly: head of the linked list
- * @cline: line number
+ * _add - adding the top 2 val of a stack_t linked list.
+ * @doubly: head of the linked list.
+ * @cline: line number.
  *
- * info: result is stored in to be stored in the 2nd val node
+ * info: result is stored in to be stored in the 2nd val node.
  * the top and the top value is removed.
  *
  */
@@ -19,7 +19,7 @@ void _add(stack_t **doubly, unsigned int cline)
 		;
 	if (m <2)
 	{
-		dprint(2, "L%u: can't add, stack too short\n", cline);
+		dprintf(2, "L%u: can't add, stack too short\n", cline);
 		free_vglo();
 		exit(EXIT_FAILURE);
 	}
@@ -58,7 +58,7 @@ void _sub(stack_t **head, unsigned int cline)
 		;
 	if (m < 2)
 	{
-		dprintf(2, "L%U: can't substract,stack too short\n", cline);
+		dprintf(2, "L%u: can't substract,stack too short\n", cline);
 		free_vglo();
 		exit(EXIT_FAILURE);
 	}
@@ -79,9 +79,9 @@ void _div(stack_t **doubly, unsigned int cline)
 	int m = 0;
 	stack_t *aux = NULL;
 
-	aux = *double;
+	aux = *doubly;
 
-	for (; aux != NULL; aux =->next, m++)
+	for (; aux != NULL; aux = aux->next, m++)
 		;
 	if (m < 2)
 	{
@@ -108,7 +108,7 @@ void _div(stack_t **doubly, unsigned int cline)
  * from the top,the top val wil be removed
  *
  */
-void _mul(stack_t **head, unsigned int cline);
+void _mul(stack_t **head, unsigned int cline)
 {
 	int m = 0;
 	stack_t *current;
@@ -124,7 +124,7 @@ void _mul(stack_t **head, unsigned int cline);
 		exit(EXIT_FAILURE);
 	}
 	current = (*head)-> next;
-	current-> *= (*head)->n;
+	current->n *= (*head)->n;
 	_pop(head,cline);
 }
 

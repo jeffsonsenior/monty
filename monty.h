@@ -1,5 +1,5 @@
-#ifndef MONTY_H
-#define MONTY_H
+#ifndef MONTY_H_
+#define MONTY_H_
 
 #define _POSIX_C_SOURCE 200809L
 #define _GNU_SOURCE

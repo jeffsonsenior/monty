@@ -29,7 +29,7 @@ void _rot1(stack_t **doubly, unsigned int cline)
 	aux2->next = *doubly;
 	(*doubly)->next = NULL;
 	(*doubly)->prev = aux2;
-	*doublt = aux1;
+	*doubly = aux1;
 }
 
 /**
@@ -47,7 +47,9 @@ void _rotr(stack_t **doubly, unsigned int cline)
 	if (*doubly == NULL)
 		return;
 
-	if ((*doubly)->next != NULL; aux->next)
+	if ((*doubly)->next == NULL)
+		return;
+	for (; aux->next != NULL; aux = aux->next)
 		;
 
 	aux->prev->next = NULL;
@@ -55,10 +57,3 @@ void _rotr(stack_t **doubly, unsigned int cline)
 	aux->prev = NULL;
 	*doubly = aux;
 }
-
-
-
-
-
-
-

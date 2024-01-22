@@ -1,7 +1,7 @@
 #include "monty.h"
 
 /*declaration of function pointer*/
-void (*f)(stack_t **stack, unsigned int line_num);
+void (*f)(stack_t **stack, unsigned int line_number);
 global_t vglo;
 
 /**
@@ -57,7 +57,7 @@ FILE *check_inpt(int argc, char *argv[])
 
 	if (fd == NULL)
 	{
-		dprintf(2, "Error: cant open file %s\n" argv[1]);
+		dprintf(2, "Error: can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
 	return (fd);
@@ -74,32 +74,32 @@ FILE *check_inpt(int argc, char *argv[])
  * @argv: arguments vectors
  * Return: 0 on successful.
  */
-int main(int args, char *argv[])
+int main(int argc, char *argv[])
 {
 	FILE *fd;
 
-	size_t size 256;
-	ssize_t nline = 0;
+	size_t size = 256;
+	ssize_t nlines = 0;
 	char *lines[2] = {NULL, NULL};
 
 	fd = check_inpt(argc, argv); /* validate and open input file */
 	start_vglo(fd);
 	nlines = getline(&vglo.buffer, &size, fd);
 
-	while (nline != -1)
+	while (nlines != -1)
 	{
-		lines[0] = strtoky(vglo.buffer, "\t\n");
+		lines[0] = _strtoky(vglo.buffer, "\t\n");
 		if (lines[0] && lines[0][0] != '#')
 		{
 			f = get_opcodes(lines[0]);
 			if (!f)
 			{
 				dprintf(2, "L%u: ", vglo.cont);
-				dprint(2, "unknown intruction %s\n", lines[0]);
+				dprintf(2, "unknown intruction %s\n", lines[0]);
 				free_vglo();
 				exit(EXIT_FAILURE);
 			}
-			vglo.arg = strtoky(NULL, "\t\n");
+			vglo.arg = _strtoky(NULL, "\t\n");
 			f(&vglo.head, vglo.cont);
 		}
 		nlines = getline(&vglo.buffer, &size, fd);

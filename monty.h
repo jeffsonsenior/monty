@@ -1,97 +1,63 @@
-#ifndef MONTY_H_
-#define MONTY_H_
+#ifndef MONTY_H
+#define MONTY_H
+
+#define _POSIX_C_SOURCE 200809L
+#define _GNU_SOURCE
 
 #include <stdio.h>
-#include <unistd.h>
 #include <stdlib.h>
-#include <ctype.h>
 #include <sys/types.h>
+#include <unistd.h>
+#include <fcntl.h>
 #include <string.h>
+#include <ctype.h>
 
-
-extern global_t vglo;
-
-/*opcodes */
-void _push(stack_t **stack, unsigned int line_numb);
-void _pall(stack_t **stack, unsigned int line_numb);
-void _pop(stack_t **doubly, unsigned int cline);
-void _pint(stack_t **doubly, unsigned int cline);
-void _rotr(stack_t **doubly, unsigned int cline);
-void _swap(stack_t **doubly, unsigned int cline);
-void _rot1(stack_t **doubly, unsigned int cline);
-void _queue(stack_t **doubly, unsigned int cline);
-void _pstr(stack_t **doubly, unsigned int cline);
-void _stack(stack_t **doubly, unsigned int cline);
-void _pchar(stack_t **doubly, unsigned int cline);
-void _add(stack_t **doubly, unsigned int cline);
-void _mod(stack_t **doubly, unsigned int cline);
-void _nop(stack_t **doubly, unsigned int cline);
-void _mul(stack_t **doubly, unsigned int cline);
-void _sub(stack_t **doubly, unsigned int cline);
-void _div(stack_t **doubly, unsigned int cline);
-
-/* get_function */
-void (*get_opcodes(char *opc))(stack_t **stack, unsigned int line_num);
-
-/*list fuction */
-stack_t *add_dnodeint_end(stack_t **head, const int n);
-stack_t *add_dnodeint(stack_t **head, const int n);
-void free_dlistint(stock_t *head);
-
-/* main */
-void free_vglo(void);
-
-/* other functions-imp */
-int _sch(char *s, char c);
-char *_strtoky(char *s, char *d);
-void *_calloc(unsigned int nmemb, unsigned int size);
-int _strcmp(char *s1, char *s2);
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 
 /**
- * struct stack_s - doubly linked representation of a stack(or queue)
- * @n: integer value stored in the node
- * @prev: pointer to previous elements in a  stack(or queue)
- * @next: pointer to the next element in stack(or queue)
- * description: doubly linked list node structure
- * for stack, queue,LIFO,FIFO
+ * struct stack_s - doubly linked list representation of a stack (or queue)
+ * @n: integer
+ * @prev: points to the previous element of the stack (or queue)
+ * @next: points to the next element of the stack (or queue)
+ *
+ * Description: doubly linked list node structure
+ * for stack, queues, LIFO, FIFO 
  */
 typedef struct stack_s
 {
 	int n;
 	struct stack_s *prev;
-
-	sruct stack_s *next;
+	struct stack_s *next;
 } stack_t;
 
 /**
- * struct globals - global structure to use in funcctions
- * @lifo: flag indicating if its stack or queue
- * @cont: current line number
- * @arg: 2nd parameter inside the current line
- * @head: pointer to doubly linked list
+ * struct globals - global structure to use in the functions
+ * @lifo: is stack or queue
+ * @cont: current line
+ * @arg: second parameter inside the current line
+ * @head: doubly linked list
  * @fd: file descriptor
  * @buffer: input text
- * description: structure holding global variables
- * for stack, queue, LIFO,FIFO
+ *
+ * Description: doubly linked list node structure
+ * for stack, queues, LIFO, FIFO
  */
 typedef struct globals
 {
 	int lifo;
 	unsigned int cont;
-	char *arg;
-	strack_t *head;
+	char  *arg;
+	stack_t *head;
 	FILE *fd;
 	char *buffer;
 } global_t;
 
 /**
- * struct bus_s - varriable to carry value through the program
+ * struct bus_s - variables -args, file, line content
  * @arg: value
- * @file:pointer to monty file
+ * @file: pointer to monty file
  * @content: line content
- * @lifi: flag indicating changes btwn stack and queue
- * description: struct carrying values through the prog
+ * @lifi: flag change stack <-> queue
+ * Description: carries values through the program
  */
 typedef struct bus_s
 {
@@ -99,16 +65,18 @@ typedef struct bus_s
 	FILE *file;
 	char *content;
 	int lifi;
-} bus_t;
+}  bus_t;
+
+
 
 extern bus_t bus;
-
 /**
- * struct instruction_s - opcode and its corresponding func
- * @opcode: operation code
- * @f: function to hundle opcode
- * description: opcode (operation code)
- * for stack,queue,LIFO,FIFO
+ * struct instruction_s - opcode and its function
+ * @opcode: the opcode
+ * @f: function to handle the opcode
+ *
+ * Description: opcode and its function
+ * for stack, queues, LIFO, FIFO
  */
 typedef struct instruction_s
 {
@@ -116,7 +84,45 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+extern global_t vglo;
 
-#endif
+/* opcode_instructuions*/
+void _push(stack_t **stack, unsigned int line_number);
+void _pall(stack_t **stack, unsigned int line_number);
+void _pint(stack_t **doubly, unsigned int cline);
+void _pop(stack_t **doubly, unsigned int cline);
+void _swap(stack_t **doubly, unsigned int cline);
+void _queue(stack_t **doubly, unsigned int cline);
+void _stack(stack_t **doubly, unsigned int cline);
+void _add(stack_t **doubly, unsigned int cline);
+void _nop(stack_t **doubly, unsigned int cline);
+void _sub(stack_t **doubly, unsigned int cline);
+void _div(stack_t **doubly, unsigned int cline);
+void _mul(stack_t **doubly, unsigned int cline);
+void _mod(stack_t **doubly, unsigned int cline);
+void _pchar(stack_t **doubly, unsigned int cline);
+void _pstr(stack_t **doubly, unsigned int cline);
+void _rotl(stack_t **doubly, unsigned int cline);
+void _rotr(stack_t **doubly, unsigned int cline);
+
+/*get function*/
+void (*get_opcodes(char *opc))(stack_t **stack, unsigned int line_number);
+
+/*imported functions*/
+int _sch(char *s, char c);
+char *_strtoky(char *s, char *d);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+void *_calloc(unsigned int nmemb, unsigned int size);
+int _strcmp(char *s1, char *s2);
+
+/* doubly linked list functions */
+stack_t *add_dnodeint_end(stack_t **head, const int n);
+stack_t *add_dnodeint(stack_t **head, const int n);
+void free_dlistint(stack_t *head);
+
+/* main */
+void free_vglo(void);
 
 
+
+#endif /* MONTY_H */
